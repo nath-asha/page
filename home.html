@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Disease Identification</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #f5f5b5, #056bf9) fixed;
+            background-size: 100% 100%;
+            color: white;
+        }
+
+        .common-container {
+            display: flex;
+            align-items: flex-start; /* Align items at the start of the cross axis (top) */
+            width: 80%;
+            margin: 5px auto;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 5px;
+            margin-top: 23px;
+        }
+
+        .disease-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .disease-image img {
+            height: 100px;
+            width: auto;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .disease-image p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            color: black;
+        }
+
+        .vertical-line-after-images {
+            border-left: 2px solid white;
+            height: 70%;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .right-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center; /* Align text within the container */
+            margin-left: 20px; /* Add margin to separate from the vertical line */
+        }
+
+        h1 {
+            background-color: #2e17da;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 8px;
+            font-size: 34px;
+        }
+
+        .form-container {
+            /* Create a container for the form, image, and predicted disease section */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 95%; /* Full width within the right section */
+            padding: 20px; /* Light gray background color */
+            border-color: black;
+            border-radius: 30px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); /* Add a subtle box shadow for depth */
+            transition: background-color 0.3s ease; /* Smooth transition for background color change */
+        }
+
+       
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center form items horizontally */
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            width: calc(100% - 20px);
+            padding: 15px;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        button.upload-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            box-sizing: border-box;
+            background-color: #11356a;
+            color: white;
+            margin-right: 10px;
+            transition: background-color 0.3s ease; /* Smooth transition for background color change */
+        }
+
+        button.upload-btn:hover {
+            background-color: #3a2be4; /* Darker green on hover */
+            opacity: 0.8;
+        }
+
+        .predicted-disease {
+            font-size: 20px;
+            margin-top: 15px;
+        }
+
+        .predicted-disease span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="common-container">
+        <div class="image-container">
+            <div class="disease-image">
+                <img src="eczema.jpeg" alt="Disease 1">
+                <p><strong>eczema</strong></p>
+            </div>
+            <div class="disease-image">
+                <img src="rosacea.jpg" alt="Disease 2">
+                <p><strong>rosacea</strong></p>
+            </div>
+            <div class="disease-image">
+                <img src="acne.jpeg" alt="Disease 3">
+                <p><strong>acne</strong></p>
+            </div>
+        </div>
+        <!-- Add the vertical line after the disease images -->
+        <div class="vertical-line-after-images"></div>
+        <div class="right-section">
+            <h1>Skin Disease Identification and personalised solutions using Deep Learning</h1>
+            
+            <!-- Wrap the form, image, and predicted disease in a content container -->
+            <div class="form-container">
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" accept=".jpg, .jpeg, .png" required>
+                    <button type="submit" class="upload-btn">Upload</button>
+                </form>
+                {% if file_path %}
+                <img src="{{ file_path }}" alt="Uploaded Image" style="max-width: 300px; margin-top: 20px;">
+                <p class="predicted-disease">Predicted Disease: <span>{{ predicted_class }}</span></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

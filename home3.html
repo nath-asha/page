@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Disease Identification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5b5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #056bf9;
+            margin-bottom: 20px;
+        }
+
+        .disease-list {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+
+        .disease {
+            flex: 1;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #056bf9;
+            color: white;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .disease:hover {
+            background-color: #11356a;
+        }
+
+        .selected {
+            background-color: #3a2be4 !important;
+        }
+
+        .image-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 2px dashed #056bf9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .image-preview {
+            margin-top: 20px;
+            width: 100%;
+            height: auto;
+            max-width: 300px;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .image-gallery {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            margin: auto;
+        }
+
+        .gallery-image {
+            width: 30%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.1);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .predicted-disease {
+            text-align: center;
+            color: #056bf9;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .tips {
+            padding: 20px;
+            background-color: #056bf9;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Skin Disease Identification</h1>
+        <p class="tips">
+            Here are some skincare tips to maintain healthy skin:
+            <ul>
+                <li>Always cleanse your face before going to bed.</li>
+                <li>Apply sunscreen daily, even on cloudy days.</li>
+                <li>Stay hydrated by drinking plenty of water.</li>
+                <li>Eat a balanced diet rich in fruits and vegetables.</li>
+                <li>Get enough sleep to allow your skin to regenerate.</li>
+            </ul>
+        </p>
+        <div class="disease-list">
+            <div class="disease" onclick="selectDisease(this)">Eczema</div>
+            <div class="disease" onclick="selectDisease(this)">Rosacea</div>
+            <div class="disease" onclick="selectDisease(this)">Acne</div>
+        </div>
+        <div class="image-upload">
+            <p>Upload an image:</p>
+            <input type="file" id="fileInput" onchange="previewImage(event)">
+            <img src="#" id="preview" class="hidden image-preview" alt="Image Preview">
+        </div>
+        <div class="image-gallery">
+            <img src="eczema.jpeg" id="eczema" class="gallery-image" alt="Eczema">
+            <img src="rosacea.jpg" id="rosacea" class="gallery-image" alt="Rosacea">
+            <img src="acne.jpeg" id="acne" class="gallery-image" alt="Acne">
+        </div>
+        <p class="predicted-disease hidden" id="predictedDisease">Predicted Disease: <span id="diseaseName"></span></p>
+    </div>
+
+    <script>
+        function selectDisease(element) {
+            // Remove the 'selected' class from all diseases
+            let diseases = document.querySelectorAll('.disease');
+            diseases.forEach(disease => disease.classList.remove('selected'));
+
+            // Add the 'selected' class to the clicked disease
+            element.classList.add('selected');
+        }
+
+        function previewImage(event) {
+            let file = event.target.files[0];
+            let reader = new FileReader();
+
+            reader.onload = function () {
+                let preview = document.getElementById('preview');
+                preview.src = reader.result;
+                preview.classList.remove('hidden');
+            }
+
+            reader.readAsDataURL(file);
+            predictDisease(file);
+        }
+
+        function predictDisease(image) {
+            // Placeholder for predicting the disease based on the uploaded image
+            let predictedDisease = document.getElementById('predictedDisease');
+            let diseaseName = document.getElementById('diseaseName');
+
+            predictedDisease.classList.remove('hidden');
+            diseaseName.textContent = "Eczema"; // Placeholder disease name
+        }
+    </script>
+</body>
+</html>
